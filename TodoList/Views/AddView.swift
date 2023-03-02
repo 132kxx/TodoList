@@ -10,6 +10,14 @@ import SwiftUI
 struct AddView: View {
     
     @State var textFieldText: String = ""
+    @EnvironmentObject var listViewModel: ListViewModel
+    
+    @Environment(\.dismiss) var dismiss
+    
+    // for alert
+    @State var showAlert: Bool = false
+    @State var alertTitle: String = ""
+    
     
     var body: some View {
         ScrollView {
@@ -19,7 +27,7 @@ struct AddView: View {
                     .cornerRadius(10)
                 
                 Button {
-                    //
+                    saveButtonPressed()
                 } label: {
                     Text("Save".uppercased())
                         .font(.headline)
@@ -30,21 +38,47 @@ struct AddView: View {
                         .cornerRadius(10)
                     
                 }
+                
             }
             .padding(14)
 
         }
-
-        
         .navigationTitle("Add an Item")
+        .alert(isPresented: $showAlert) {
+            getAlert()
+        }
+    }
+    
+    func saveButtonPressed() {
+        if textIsAppropriate() {
+            listViewModel.addItem(title: textFieldText)
+            textFieldText = ""
+            dismiss()
+        } else {
+            alertTitle =  "have to check"
+            showAlert.toggle()
+        }
+    }
+    
+    func textIsAppropriate() -> Bool {
+        if textFieldText.count > 3 {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    func getAlert() -> Alert {
+        return Alert(title: Text(alertTitle))
     }
 }
 
 struct AddView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            AddView()
+            ListView()
         }
+        .environmentObject(ListViewModel())
     }
 }
 
