@@ -21,10 +21,14 @@ struct AddView: View {
     
     var body: some View {
         ScrollView {
-            VStack {
+            VStack(spacing: 20) {
                 TextField("typing here", text: $textFieldText)
-                    .padding(.horizontal)
+                    .padding()
                     .cornerRadius(10)
+                    .background {
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke()
+                    }
                 
                 Button {
                     saveButtonPressed()

@@ -15,9 +15,14 @@ struct ListView: View {
         List {
             ForEach(listViewModel.items) { item in
                 ListRowView(item: item)
+                    .onTapGesture {
+                        withAnimation(.spring()){
+                            listViewModel.updateItem(item: item)
+                        }
+                    }
             }
-            .onDelete(perform: deleteItem)
-            .onMove(perform: moveItem)
+            .onDelete(perform: listViewModel.deleteItem)
+            .onMove(perform: listViewModel.moveItem)
         }
         .listStyle(PlainListStyle())
         .navigationTitle("Todo List 📝")
@@ -32,14 +37,7 @@ struct ListView: View {
         }
         
     }
-    
-    func deleteItem(indexset: IndexSet) {
-        listViewModel.items.remove(atOffsets: indexset)
-    }
-    
-    func moveItem(from: IndexSet, to: Int)  {
-        listViewModel.items.move(fromOffsets: from, toOffset: to)
-    }
+
     
 
     
