@@ -44,19 +44,25 @@ struct ListView: View {
         }
         
     }
-
-    
-
-    
 }
 
 // preview
 struct ListView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationStack {
-            ListView()
+        Group {
+            NavigationStack {
+                ListView()
+                    .preferredColorScheme(.light)
+            }
+            .environmentObject(ListViewModel())
+            
+            NavigationStack {
+                ListView()
+                    .preferredColorScheme(.dark)
+            }
+            .environmentObject( ListViewModel())
         }
-        .environmentObject(ListViewModel())
+        
     }
 }
 

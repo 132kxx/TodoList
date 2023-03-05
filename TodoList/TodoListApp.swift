@@ -26,6 +26,7 @@ struct TodoListApp: App {
                 ListView()
             }
             .environmentObject(listViewModel)
+            
         }
     }
 }

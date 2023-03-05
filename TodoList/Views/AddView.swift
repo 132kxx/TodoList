@@ -26,8 +26,7 @@ struct AddView: View {
                     .padding()
                     .cornerRadius(10)
                     .background {
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke()
+                        Color(UIColor.secondarySystemBackground)
                     }
                 
                 Button {
